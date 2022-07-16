@@ -10,14 +10,33 @@ export function Home() {
 
   function handleAddTask(newTaskTitle: string) {
     //TODO - add new task
+    setTasks(prev => [...prev, {
+      id: Math.floor(Math.random() * 9),
+      done: false,
+      title: newTaskTitle
+    }]);
   }
 
   function handleToggleTaskDone(id: number) {
-    //TODO - toggle task done if exists
+    const draft_tasks = tasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          done: !task.done
+        }
+      }
+
+      return task;
+    })
+
+    setTasks(draft_tasks);
   }
 
   function handleRemoveTask(id: number) {
     //TODO - remove task from state
+    const draft_tasks = tasks.filter(task => task.id !== id);
+
+    setTasks(draft_tasks);
   }
 
   return (
